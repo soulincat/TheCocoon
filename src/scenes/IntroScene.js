@@ -55,11 +55,15 @@ export class IntroScene extends BaseScene {
         document.fonts.ready.then(() => {
             // Calculate position below cocoon - middle area
             const cocoonHeight = cocoonObject.height * cocoonObject.scale.y;
-            const spacing = 50 * (this.app.screen.height / 1080); // Responsive spacing
+            // Responsive spacing - scale properly for mobile
+            const scaleFactor = Math.min(this.app.screen.width / 1920, this.app.screen.height / 1080);
+            const spacing = 50 * scaleFactor;
             const baseTitleY = cocoonObject.y + (cocoonHeight / 2) + spacing;
             
-            // Calculate responsive font size - make it bigger
-            const fontSize = Math.max(36, Math.min(56, 48 * (this.app.screen.width / 1920)));
+            // Calculate responsive font size - scale properly for mobile
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const baseFontSize = isMobile ? 32 : 48; // Smaller base on mobile
+            const fontSize = Math.max(24, Math.min(isMobile ? 40 : 56, baseFontSize * scaleFactor));
             
             // Cocoon color: off-white/cream/beige - using a warm beige color
             // RGB: approximately (245, 240, 230) or #F5F0E6
@@ -97,8 +101,12 @@ export class IntroScene extends BaseScene {
             // Both cocoon and text use center anchor (0.5, 0.5), so x positions should match exactly
             const cocoonCenterX = cocoonObject.x; // Cocoon's center X (already centered due to anchor 0.5)
             
-            textContainer.x = cocoonCenterX - 20; // Match cocoon's center X, then move 20px left
-            textContainer.y = baseTitleY - 120; // Position below cocoon, then move 120px up (50px + 70px)
+            // Scale offsets for mobile - use scaleFactor to make offsets responsive
+            const offsetX = -20 * scaleFactor; // Move left, scaled
+            const offsetY = -120 * scaleFactor; // Move up, scaled
+            
+            textContainer.x = cocoonCenterX + offsetX;
+            textContainer.y = baseTitleY + offsetY;
             textContainer.alpha = 0;
             
             this.container.addChild(textContainer);
@@ -117,6 +125,25 @@ export class IntroScene extends BaseScene {
 
             // Title stays visible - no auto fade out
         });
+    }
+    
+    handleResize() {
+        // Call parent resize handler
+        super.handleResize();
+        
+        // Update title position on resize
+        if (this.titleText && this.cocoonObject) {
+            const cocoonHeight = this.cocoonObject.height * this.cocoonObject.scale.y;
+            const scaleFactor = Math.min(this.app.screen.width / 1920, this.app.screen.height / 1080);
+            const spacing = 50 * scaleFactor;
+            const baseTitleY = this.cocoonObject.y + (cocoonHeight / 2) + spacing;
+            
+            const offsetX = -20 * scaleFactor;
+            const offsetY = -120 * scaleFactor;
+            
+            this.titleText.x = this.cocoonObject.x + offsetX;
+            this.titleText.y = baseTitleY + offsetY;
+        }
     }
     
     destroy() {

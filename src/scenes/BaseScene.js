@@ -25,21 +25,24 @@ export class BaseScene {
             
             this.background = new PIXI.Sprite(bgTexture);
             
-            // Scale background to fit screen
+            // Scale background to cover screen (cover mode for better mobile experience)
             const scale = Math.max(
                 this.app.screen.width / this.background.width,
                 this.app.screen.height / this.background.height
             );
             this.background.scale.set(scale);
-            this.background.x = (this.app.screen.width - this.background.width) / 2;
-            this.background.y = (this.app.screen.height - this.background.height) / 2;
+            // Center the background
+            this.background.anchor.set(0.5);
+            this.background.x = this.app.screen.width / 2;
+            this.background.y = this.app.screen.height / 2;
             
             this.container.addChild(this.background);
         } else {
             // Create default black background
             const bg = new PIXI.Graphics();
-            bg.rect(0, 0, this.app.screen.width, this.app.screen.height);
-            bg.fill(0x000000);
+            bg.beginFill(0x000000);
+            bg.drawRect(0, 0, this.app.screen.width, this.app.screen.height);
+            bg.endFill();
             this.background = bg;
             this.container.addChild(this.background);
         }
@@ -88,15 +91,18 @@ export class BaseScene {
             sprite.x = (objData.x || 0.5) * this.app.screen.width;
             sprite.y = (objData.y || 0.5) * this.app.screen.height;
         } else {
-            // Absolute positioning
-            sprite.x = objData.x || 0;
-            sprite.y = objData.y || 0;
+            // Absolute positioning - scale for mobile
+            const scaleFactor = Math.min(this.app.screen.width / 1920, this.app.screen.height / 1080);
+            sprite.x = (objData.x || 0) * scaleFactor;
+            sprite.y = (objData.y || 0) * scaleFactor;
         }
         sprite.anchor.set(0.5);
 
-        // Scale if needed
+        // Scale if needed - adjust for mobile
         if (objData.scale) {
-            sprite.scale.set(objData.scale);
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const mobileScale = isMobile ? objData.scale * 0.8 : objData.scale; // Smaller on mobile
+            sprite.scale.set(mobileScale);
         }
 
         // Setup interaction
@@ -141,13 +147,16 @@ export class BaseScene {
                     this.app.screen.height / this.background.texture.height
                 );
                 this.background.scale.set(scale);
-                this.background.x = (this.app.screen.width - this.background.width) / 2;
-                this.background.y = (this.app.screen.height - this.background.height) / 2;
+                // Center the background
+                this.background.anchor.set(0.5);
+                this.background.x = this.app.screen.width / 2;
+                this.background.y = this.app.screen.height / 2;
             } else if (this.background.clear) {
                 // It's a Graphics object, resize it
                 this.background.clear();
-                this.background.rect(0, 0, this.app.screen.width, this.app.screen.height);
-                this.background.fill(0x000000);
+                this.background.beginFill(0x000000);
+                this.background.drawRect(0, 0, this.app.screen.width, this.app.screen.height);
+                this.background.endFill();
             }
         }
         
@@ -157,6 +166,11 @@ export class BaseScene {
             if (objData && objData.positionRelative) {
                 sprite.x = (objData.x || 0.5) * this.app.screen.width;
                 sprite.y = (objData.y || 0.5) * this.app.screen.height;
+            } else if (objData) {
+                // Scale absolute positions
+                const scaleFactor = Math.min(this.app.screen.width / 1920, this.app.screen.height / 1080);
+                sprite.x = (objData.x || 0) * scaleFactor;
+                sprite.y = (objData.y || 0) * scaleFactor;
             }
         });
     }

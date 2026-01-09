@@ -192,10 +192,12 @@ export class SoundToggle {
     }
 
     updatePosition() {
-        // Position in left bottom corner
-        const padding = 20;
+        // Position in left bottom corner - scale for mobile
+        const scaleFactor = Math.min(this.app.screen.width / 1920, this.app.screen.height / 1080);
+        const padding = 20 * scaleFactor;
+        const iconHeight = 60 * scaleFactor;
         this.container.x = padding;
-        this.container.y = this.app.screen.height - 60; // 60px from bottom (icon height + padding)
+        this.container.y = this.app.screen.height - iconHeight;
     }
 
     addToStage(stage) {

@@ -1,0 +1,19 @@
+{
+  "name": "thecocoon-hotel",
+  "version": "1.0.0",
+  "description": "Interactive hotel website - point-and-click exploration game",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "howler": "^2.2.4",
+    "pixi.js": "^7.3.2"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}

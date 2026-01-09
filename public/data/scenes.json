@@ -1,0 +1,257 @@
+{
+  "scenes": [
+    {
+      "id": "intro",
+      "name": "Story Introduction",
+      "background": "/assets/scenes/intro-bg.png",
+      "ambientSound": {
+        "src": "/assets/sounds/ambient-intro.mp3",
+        "volume": 0.4
+      },
+      "text": {
+        "content": "Welcome to The Cocoon\n\nA place where time slows down...",
+        "fontSize": 32,
+        "color": "#ffffff"
+      },
+      "interactiveObjects": [
+        {
+          "id": "cocoon-hero",
+          "image": "/assets/objects/cocoon.png",
+          "x": 0.5,
+          "y": 0.45,
+          "scale": 0.6,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "hoverScale": 1.05,
+          "positionRelative": true
+        }
+      ]
+    },
+    {
+      "id": "exterior",
+      "name": "Hotel Exterior",
+      "background": "/assets/scenes/exterior-bg.jpg",
+      "ambientSound": {
+        "src": "/assets/sounds/ambient-exterior.mp3",
+        "volume": 0.5
+      },
+      "interactiveObjects": [
+        {
+          "id": "main-entrance",
+          "image": "/assets/objects/door-main.png",
+          "hoverImage": "/assets/objects/door-main-hover.png",
+          "x": 960,
+          "y": 800,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "hoverScale": 1.05,
+          "clickSound": "/assets/sounds/door-open.mp3",
+          "travelTo": "lobby",
+          "transition": "fade"
+        },
+        {
+          "id": "nature-path",
+          "image": "/assets/objects/path-nature.png",
+          "hoverImage": "/assets/objects/path-nature-hover.png",
+          "x": 200,
+          "y": 900,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/footsteps.mp3",
+          "travelTo": "surroundings",
+          "transition": "fade"
+        }
+      ]
+    },
+    {
+      "id": "lobby",
+      "name": "Hotel Lobby",
+      "background": "/assets/scenes/lobby-bg.jpg",
+      "ambientSound": {
+        "src": "/assets/sounds/ambient-lobby.mp3",
+        "volume": 0.5
+      },
+      "interactiveObjects": [
+        {
+          "id": "lobby-bell",
+          "image": "/assets/objects/bell.png",
+          "hoverImage": "/assets/objects/bell-hover.png",
+          "x": 300,
+          "y": 400,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/bell-ring.mp3",
+          "stateChange": {
+            "default": {
+              "state": "used",
+              "image": "/assets/objects/bell-used.png"
+            }
+          }
+        },
+        {
+          "id": "elevator",
+          "image": "/assets/objects/elevator.png",
+          "hoverImage": "/assets/objects/elevator-hover.png",
+          "x": 1600,
+          "y": 700,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/elevator-ding.mp3",
+          "travelTo": "room",
+          "transition": "slide"
+        },
+        {
+          "id": "spa-door",
+          "image": "/assets/objects/door-spa.png",
+          "hoverImage": "/assets/objects/door-spa-hover.png",
+          "x": 400,
+          "y": 600,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/door-open.mp3",
+          "travelTo": "spa",
+          "transition": "fade"
+        },
+        {
+          "id": "restaurant-door",
+          "image": "/assets/objects/door-restaurant.png",
+          "hoverImage": "/assets/objects/door-restaurant-hover.png",
+          "x": 1500,
+          "y": 500,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/door-open.mp3",
+          "travelTo": "restaurant",
+          "transition": "fade"
+        },
+        {
+          "id": "exit-lobby",
+          "image": "/assets/objects/door-exit.png",
+          "hoverImage": "/assets/objects/door-exit-hover.png",
+          "x": 100,
+          "y": 800,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/door-open.mp3",
+          "travelTo": "exterior",
+          "transition": "fade"
+        }
+      ]
+    },
+    {
+      "id": "room",
+      "name": "Hotel Room",
+      "background": "/assets/scenes/room-bg.jpg",
+      "ambientSound": {
+        "src": "/assets/sounds/ambient-room.mp3",
+        "volume": 0.4
+      },
+      "interactiveObjects": [
+        {
+          "id": "window",
+          "image": "/assets/objects/window.png",
+          "hoverImage": "/assets/objects/window-hover.png",
+          "x": 1600,
+          "y": 400,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/window-open.mp3"
+        },
+        {
+          "id": "room-exit",
+          "image": "/assets/objects/elevator.png",
+          "hoverImage": "/assets/objects/elevator-hover.png",
+          "x": 100,
+          "y": 700,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/elevator-ding.mp3",
+          "travelTo": "lobby",
+          "transition": "slide"
+        }
+      ]
+    },
+    {
+      "id": "spa",
+      "name": "Spa",
+      "background": "/assets/scenes/spa-bg.jpg",
+      "ambientSound": {
+        "src": "/assets/sounds/ambient-spa.mp3",
+        "volume": 0.6
+      },
+      "interactiveObjects": [
+        {
+          "id": "spa-exit",
+          "image": "/assets/objects/door-spa.png",
+          "hoverImage": "/assets/objects/door-spa-hover.png",
+          "x": 100,
+          "y": 800,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/door-open.mp3",
+          "travelTo": "lobby",
+          "transition": "fade"
+        }
+      ]
+    },
+    {
+      "id": "restaurant",
+      "name": "Restaurant",
+      "background": "/assets/scenes/restaurant-bg.jpg",
+      "ambientSound": {
+        "src": "/assets/sounds/ambient-restaurant.mp3",
+        "volume": 0.5
+      },
+      "interactiveObjects": [
+        {
+          "id": "restaurant-exit",
+          "image": "/assets/objects/door-restaurant.png",
+          "hoverImage": "/assets/objects/door-restaurant-hover.png",
+          "x": 100,
+          "y": 800,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/door-open.mp3",
+          "travelTo": "lobby",
+          "transition": "fade"
+        }
+      ]
+    },
+    {
+      "id": "surroundings",
+      "name": "Surroundings",
+      "background": "/assets/scenes/surroundings-bg.jpg",
+      "ambientSound": {
+        "src": "/assets/sounds/ambient-nature.mp3",
+        "volume": 0.5
+      },
+      "interactiveObjects": [
+        {
+          "id": "return-path",
+          "image": "/assets/objects/path-nature.png",
+          "hoverImage": "/assets/objects/path-nature-hover.png",
+          "x": 100,
+          "y": 900,
+          "scale": 1,
+          "cursor": "pointer",
+          "hoverAnimation": true,
+          "clickSound": "/assets/sounds/footsteps.mp3",
+          "travelTo": "exterior",
+          "transition": "fade"
+        }
+      ]
+    }
+  ]
+}
+
